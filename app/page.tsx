@@ -5,9 +5,9 @@ function Page() {
   const [price, setGoldPrice] = useState<string>("0.00");
   const getGoldPrice = async () => {
     try {
-      const response = await fetch('https://www.bajajfinserv.in/gold-rate-today-in-kalyan', { mode: 'no-cors' });
+      const response = await fetch('https://goldrate-tau.vercel.app/api/golrate');
       const html = await response.text();
-      console.log(response)
+      console.log(response.body)
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
       const gold22kElement = Array.from(doc.querySelectorAll("b")).find(el => el.textContent?.includes('22K Gold/10 gm'));
