@@ -4,28 +4,10 @@ import React, { useState } from 'react';
 function Page() {
   const [price, setGoldPrice] = useState<string>("0.00");
   const getGoldPrice = async () => {
-    try {
-      const response = await fetch('https://goldrate-tau.vercel.app/api/golrate');
-      const html = await response.text();
-      console.log(response.body)
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const gold22kElement = Array.from(doc.querySelectorAll("b")).find(el => el.textContent?.includes('22K Gold/10 gm'));
-      if (gold22kElement) {
-        const goldPriceElement = gold22kElement.nextElementSibling?.querySelector("h3");
-        if (goldPriceElement) {
-          const goldPrice = goldPriceElement.textContent?.trim() || '';
-          setGoldPrice(goldPrice);
-        } else {
-          setGoldPrice('Price not found');
-        }
-      } else {
-        setGoldPrice('Gold rate not found');
-      }
-    } catch (error) {
-      console.error('Error fetching gold price:', error);
-      setGoldPrice('Error fetching gold price');
-    }
+
+      const response = await fetch('https://goldrate-tau.vercel.app/api/goldrate');
+      const html = await response.json();
+      console.log(html)
   }
   
   return (
